@@ -4,7 +4,7 @@ namespace Two_Click_Embeds\includes\provider;
 
 defined( 'ABSPATH' ) || exit;
 
-abstract class Script_After_Embed_Interface implements Provider_Handler_Interface {
+abstract class Script_After_Embed_Handler implements Provider_Handler_Interface {
 
     abstract protected function getScriptUrl(): string;
 
