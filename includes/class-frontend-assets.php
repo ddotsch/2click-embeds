@@ -172,7 +172,13 @@ class Frontend_Assets {
                     color: #000;
                 }
 
+                .external-2click .external-placeholder p {
+                    margin: 0;
+                    font-size: 1.2rem;
+                }
+
                 .external-2click::before {
+                    display: none;
                     content: attr(data-provider);
                     position: absolute;
                     top: 0.5rem;
@@ -187,6 +193,22 @@ class Frontend_Assets {
                     white-space: nowrap;
                 }
 
+                .external-2click-src {
+                    margin: 1rem auto 1rem auto;
+                    max-width: 90%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-size: 0.75rem;
+                    display: block;
+                    color: #000;
+                    text-decoration: underline;
+                }
+
+                .external-2click-src:hover {
+                    text-decoration: none;
+                }
+
                 .external-2click iframe {
                     display: none;
                     width: 100%;
@@ -198,6 +220,7 @@ class Frontend_Assets {
                     padding: 0;
                 }
 
+                .external-2click.is-loaded .external-2click-src,
                 .external-2click.is-loaded::before {
                     display: none;
                 }
@@ -216,7 +239,7 @@ class Frontend_Assets {
                     border-radius: 3px;
                     border: 0;
                     font-family: 'Open Sans', sans-serif;
-                    font-size: 13px;
+                    font-size: .8rem;
                     font-weight: 500;
                     color: #fff;
                     letter-spacing: 0;
@@ -225,6 +248,13 @@ class Frontend_Assets {
                     text-decoration: none;
                     text-transform: uppercase;
                 }
+
+                .external-placeholder .external-load:hover {
+                    background: darkred;
+                    color: #fff;
+                    cursor: pointer;
+                }
+
             </style>
         <?php
     }    
