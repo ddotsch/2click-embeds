@@ -137,10 +137,17 @@ class Frontend_Assets {
                     color: black;
                 }
 
+                .external-2click .external-2click-target {
+                    display: none;
+                }
+
                 .external-2click.is-loaded {
                     border: 0 !important;
                 }
 
+                .external-2click.is-loaded .external-2click-target {
+                    display: block;
+                }
 
                 .external-2click .external-optout {
                     display: none;
