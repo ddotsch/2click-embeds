@@ -19,6 +19,7 @@ final class Embed_Provider {
     const TWITTER       = 'twitter';
     const TIKTOK        = 'tiktok';
     const FACEBOOK      = 'facebook';
+    const INSTAGRAM     = 'instagram';
 
     /**
      * Get all embed providers
@@ -70,6 +71,14 @@ final class Embed_Provider {
                 'xpath'     => '//iframe[contains(@src,"facebook.com") or contains(@src,"fb.watch")]',
                 'text'      => sprintf(__('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'), __('Facebook', 'two-click-embeds')),
                 'handler'   => Generic_Iframe_Handler::class,
+            ],
+            self::INSTAGRAM => [
+                'slug'      => 'instagram',
+                'label'     => __('Instagram', 'two-click-embeds'),
+                'xpath'     => '//blockquote[contains(@class,"instagram-media")]',
+                'text'      => sprintf( __('Beim Laden des Beitrags werden Daten an %s übertragen.', 'two-click-embeds'), __('Instagram', 'two-click-embeds') ),
+                'script'    => 'https://www.instagram.com/embed.js',
+                'handler'   => Instagram_Provider_Handler::class,
             ],
 
         ];
