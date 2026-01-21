@@ -1,30 +1,30 @@
 # Two Click Embeds
 
-**Beschreibung:**  
-Datenschutzfreundliche Einbettungen von externen Inhalten (YouTube, Vimeo, SoundCloud, Twitter/X, TikTok, Facebook) mit 2-Click-Placeholder.
+**Descripton:**  
+Privacy-friendly Embeds of 3rd Party Content (YouTube, Vimeo, SoundCloud, Twitter/X, TikTok, Facebook) with a 2-click placeholder.
 
 ---
 
 ## Installation
 
-1. Plugin-Ordner in dein `wp-content/plugins` Verzeichnis kopieren
-2. WordPress-Admin öffnen → Plugins → „Two Click Embeds“ aktivieren
-3. Optional: eigene Provider über den Filter `two_click_embeds_providers` hinzufügen
+1. Copy the plugin-fodler into your `wp-content/plugins` directory
+2. Log into Wordpress → Plugins → activate „Two Click Embeds“
+3. Optional: add your own provider with the `two_click_embeds_providers` filter and/or add your own Provider_Handlers
 
 ---
 
 ## Features
 
-- Einbettungen von externen Inhalten standardmäßig blocken
-- Platzhalter mit Text und Button zum nachträglichen Laden
-- Opt-Out-Link für Nutzer
-- Unterstützung für mehrere Provider (YouTube, Vimeo, SoundCloud, Twitter/X, TikTok, Facebook)
-- Provider-spezifische Handler
-- Einfach erweiterbar via `Provider_Handler_Factory` und Filter
+- Replaces 3rd party embeds with a placeholder
+- placeholder with text and button to confirm
+- user can later revoke the consent with an additonal link
+- currently supports different providers (YouTube, Vimeo, SoundCloud, Twitter/X, TikTok, Facebook)
+- specific handlers based on provider
+- can be extended via `Provider_Handler_Factory` and a filter
 
 ---
 
-## Beispiel: eigenen Provider hinzufügen
+## Example: add provider with a filter
 
 ```php
 add_filter('two_click_embeds_providers', function($providers){
@@ -32,7 +32,7 @@ add_filter('two_click_embeds_providers', function($providers){
         'slug' => 'myprovider',
         'label' => 'MyProvider',
         'xpath' => '//iframe[contains(@src,"myprovider.com")]',
-        'text' => 'Beim Laden des Inhalts werden Daten an MyProvider übertragen.',
+        'text' => 'Loading this content sends data to "myprovider.com"',
         'handler' => MyProvider_Handler::class,
     ];
     return $providers;
@@ -42,7 +42,6 @@ add_filter('two_click_embeds_providers', function($providers){
 
 ## Developer Notes
 
-- Plugin ist PHP 7.4+ kompatibel
-- Provider werden als Array registriert, Renderer erwartet ProviderDefinition-Objekte
-- Hauptlogik: Embed_Renderer (DOM-Manipulation)
-- Filter the_content wird benutzt, Admin-Ansicht wird ausgelassen
+- PHP 7.4+ kompatibel
+- Provider registered as Array in class-embed-providers.php, the renderer uses the Provider_Definition class
+- main logic: Embed_Renderer (DOM-Manipulation)
