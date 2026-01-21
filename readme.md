@@ -7,9 +7,9 @@ Privacy-friendly Embeds of 3rd Party Content (YouTube, Vimeo, SoundCloud, Twitte
 
 ## Installation
 
-1. Copy the plugin-fodler into your `wp-content/plugins` directory
+1. Copy the plugin-folder into your `wp-content/plugins` directory
 2. Log into Wordpress → Plugins → activate „Two Click Embeds“
-3. Optional: add your own provider with the `two_click_embeds_providers` filter and/or add your own Provider_Handlers
+3. Optional: add your own provider with the `two_click_embeds_providers` filter and/or add your own Provider_Handler's
 
 ---
 
