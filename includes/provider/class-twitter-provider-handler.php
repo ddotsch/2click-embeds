@@ -1,22 +1,18 @@
 <?php
 
-namespace Two_Click_Embeds\includes\Provider;
+namespace Two_Click_Embeds\includes\provider;
 
 defined( 'ABSPATH' ) || exit;
 
-class Twitter_Provider_Handler implements Provider_Handler_Interface {
+class Twitter_Provider_Handler extends Script_After_Embed_Interface {
 
-    public function handle( \DOMElement $element ): void {
-        
-        /** @var DOMElement $parent */
-        $parent = $element->parentNode->parentNode;
-        $scripts = $parent->getElementsByTagName('script');
-        for ($i = $scripts->length - 1; $i >= 0; $i--) {
-            $script = $scripts->item($i);
-            $src = $script->getAttribute('src');
-            if ( str_contains( $src, 'platform.twitter.com/widgets.js' ) ) {
-                $script->parentNode->removeChild($script);;
-            }
-        }
+    /**
+     * Get the script URL to be added after the embed
+     *
+     * @return string The script URL.
+     */
+    protected function getScriptUrl(): string {
+        return 'platform.twitter.com/widgets.js';
     }
+    
 }
