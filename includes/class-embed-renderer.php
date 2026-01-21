@@ -59,13 +59,6 @@ class Embed_Renderer {
 		$wrapper->setAttribute('class', 'external-2click');
 		$wrapper->setAttribute('data-provider', $provider->label);
 		$wrapper->setAttribute('data-provider-slug', $provider->slug);
-
-        if($element->getAttribute('src')) {
-            //remove the https and www from the string before adding it as data-src
-            $src = $element->getAttribute('src');
-            $src = preg_replace('#^https?://(www\.)?#', '', $src);
-            $wrapper->setAttribute('data-src', $src);
-        }
 		
 		//add a placeholder inside the wrapper
 		$wrapper->appendChild(
@@ -75,7 +68,22 @@ class Embed_Renderer {
         //move the element inside the wrapper
 		$elementParent = $element->parentNode;
 		$elementParent->replaceChild($wrapper, $element);
+
 		$wrapper->appendChild($element);
+
+        if($element->getAttribute('src')) {
+            $src = $element->getAttribute('src');
+
+            $srcLink = $this->dom->createElement('a');
+            $srcLink->setAttribute('class', 'external-2click-src');
+            $srcLink->setAttribute('href', $element->getAttribute('src'));
+            $srcLink->setAttribute('target', '_blank');
+            
+            $textNode = $this->dom->createTextNode('Direktlink: ' . $src);
+            $srcLink->appendChild($textNode);
+
+            $wrapper->appendChild($srcLink);
+        }
 
 		//add an opt-out link
 		$wrapper->appendChild(
