@@ -37,3 +37,12 @@ add_filter('two_click_embeds_providers', function($providers){
     ];
     return $providers;
 });
+
+---
+
+## Developer Notes
+
+- Plugin ist PHP 7.4+ kompatibel
+- Provider werden als Array registriert, Renderer erwartet ProviderDefinition-Objekte
+- Hauptlogik: Embed_Renderer (DOM-Manipulation)
+- Filter the_content wird benutzt, Admin-Ansicht wird ausgelassen
