@@ -48,7 +48,7 @@ final class Provider_Definition {
         );
     }
 
-    public function createHandler(): Provider_Handler_Interface {
+    public function getHandler(): Provider_Handler_Interface {
         return new $this->handler($this);
     }
 }
