@@ -1,6 +1,6 @@
 <?php
 
-namespace Two_Click_Embeds\includes\Provider;
+namespace Two_Click_Embeds\includes\handler;
 
 defined( 'ABSPATH' ) || exit;
 

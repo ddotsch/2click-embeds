@@ -4,6 +4,9 @@ namespace Two_Click_Embeds\includes\provider;
 
 defined( 'ABSPATH' ) || exit;
 
+use Two_Click_Embeds\includes\handler\Generic_Iframe_Handler;
+use Two_Click_Embeds\includes\handler\Script_After_Embed_Handler;
+
 /**
  * Class Embed_Provider
  * Defines the available embed providers

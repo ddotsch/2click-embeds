@@ -1,8 +1,10 @@
 <?php
 
-namespace Two_Click_Embeds\includes\provider;
+namespace Two_Click_Embeds\includes\handler;
 
 defined( 'ABSPATH' ) || exit;
+
+use Two_Click_Embeds\includes\provider\Provider_Definition;
 
 class Generic_Iframe_Handler implements Provider_Handler_Interface {
 

@@ -4,6 +4,8 @@ namespace Two_Click_Embeds\includes\provider;
 
 defined( 'ABSPATH' ) || exit;
 
+use Two_Click_Embeds\includes\handler\Provider_Handler_Interface;
+
 /**
  * Class Provider_Definition
  *
