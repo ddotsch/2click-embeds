@@ -108,10 +108,10 @@ final class Embed_Provider {
                 'handler'   => Generic_Iframe_Handler::class,
             ],
             self::WPEMBED => [
-                'slug'      => 'wp-embed',
-                'label'     => __('WordPress Embed', 'two-click-embeds'),
+                'slug'      => '',
+                'label'     => '',
                 'xpath'     => '//iframe[contains(@class,"wp-embedded-content")]',
-                'text'      => sprintf( __('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'), __('WordPress', 'two-click-embeds') ),
+                'text'      => '',
                 'handler'   => Generic_Iframe_Handler::class,
             ],
         ];
