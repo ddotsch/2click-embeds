@@ -12,6 +12,15 @@ use Two_Click_Embeds\includes\ContentFilter;
 
 defined( 'ABSPATH' ) || exit;
 
+if (version_compare(PHP_VERSION, '7.4.0', '<') || !class_exists('DOMDocument') || !class_exists('DOMXPath')) {
+    add_action('admin_notices', function() {
+        echo '<div class="notice notice-error"><p>';
+        echo __('Two Click Embeds Plugin benötigt PHP 7.4+ und die PHP DOM-Extension (DOMDocument & DOMXPath).', 'two-click-embeds');
+        echo '</p></div>';
+    });
+    return;
+}
+
 define( 'TCE_VERSION', '1.0.0' );
 define( 'TCE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TCE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
