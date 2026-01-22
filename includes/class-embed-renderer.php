@@ -38,12 +38,12 @@ class Embed_Renderer {
 
        foreach ( $elements as $element ) {
            $this->wrap($element, $provider);
-           $provider->createHandler()->handle($element);
+           $provider->getHandler()->handle($element);
        }
     }
 
     /**
-     * Wrap the given element with a 2click placeholder
+     * Wrap the given element with external-2click div and add placeholder and opt-out link
      * @param \DOMElement $element
      * @param Provider_Definition $provider
      * @return void
@@ -82,7 +82,6 @@ class Embed_Renderer {
         $wrapper->appendChild(
             $this->generateSourceLink($element)
         );
-      
     }
 
     /**
