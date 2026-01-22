@@ -47,4 +47,8 @@ final class Provider_Definition {
             $provider['handler']
         );
     }
+
+    public function createHandler(): Provider_Handler_Interface {
+        return new $this->handler($this);
+    }
 }
