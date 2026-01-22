@@ -33,31 +33,25 @@ class ContentFilter {
         string $content
     ): string {
 
-        //dont do it if there is no content
-        if ( empty( $content ) ) {
-            return $content;
-        };
+        if ( empty( $content ) ) return $content;
 
-        //dont do it if im in the admin view
-        if ( is_admin() ) {
-            return $content;
-        }; 
+        if ( is_admin() ) return $content; 
 
-        //load the content into a DOM document
+        //create renderer - loads the content into a DOMDocument and generates an XPath object
         $renderer = new Embed_Renderer($content);
 
-        //process each provider
+        //process the content with each provider
         foreach ( Embed_Provider::all() as $providerArray ) {
-            
+            // create provider definition from array for easier handling
             $provider = Provider_Definition::fromArray($providerArray);
 
-            // only render the placeholder if there is a provider handler
-            if ( Provider_Handler_Factory::getHandler( $provider->slug ) ) {
-                $renderer->process( $provider );
-            } else {
-                // no handler found
+            // skip if no handler is defined and log "error"
+            if ( !$provider->handler ) {
                 error_log( '2click-embeds: No handler found for provider ' . $provider->slug );
+                continue;
             }
+            
+            $renderer->process( $provider );
         }
 
         return $renderer->returnHTML();
