@@ -49,3 +49,6 @@ msgstr "Allow content from %s"
 
 msgid "Inhalte von %s nicht mehr zulassen"
 msgstr "No longer allow content from %s"
+
+msgid "Two Click Embeds Plugin benötigt PHP 7.4+ und die PHP DOM-Extension (DOMDocument & DOMXPath)."
+msgstr "The Two Click Embeds plugin requires PHP 7.4+ and the PHP DOM extension (DOMDocument & DOMXPath)."
