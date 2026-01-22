@@ -37,6 +37,7 @@ add_filter('two_click_embeds_providers', function($providers){
     ];
     return $providers;
 });
+```
 
 ---
 
