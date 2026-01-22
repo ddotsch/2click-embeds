@@ -1,3 +1,18 @@
+.wp-block-embed.wp-has-aspect-ratio .external-2click {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.wp-block-embed.wp-has-aspect-ratio .external-2click.is-loaded iframe {
+  max-height: calc(100% - 50px);
+}
+.wp-block-embed.wp-has-aspect-ratio .external-2click.is-loaded .external-optout {
+  position: absolute;
+  bottom: 0;
+}
+
 .external-2click {
   margin: 15px 0;
   display: flex;
@@ -8,6 +23,8 @@
   padding: 2rem;
   text-align: center;
   color: black;
+  max-width: var(--wp--style--global--content-size);
+  box-sizing: border-box;
 }
 .external-2click .external-2click-target {
   display: none;
@@ -79,6 +96,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.75rem;
+  line-height: 1.6rem;
   display: block;
   color: #000;
   text-decoration: underline;
