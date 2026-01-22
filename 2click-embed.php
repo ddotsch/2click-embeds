@@ -12,6 +12,10 @@ use Two_Click_Embeds\includes\ContentFilter;
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'TCE_VERSION', '1.0.0' );
+define( 'TCE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'TCE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
 spl_autoload_register(function ($class) {
     $prefix = 'Two_Click_Embeds\\';
     $base_dir = __DIR__ . '/';
