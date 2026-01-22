@@ -20,6 +20,7 @@ final class Embed_Provider {
     const TIKTOK        = 'tiktok';
     const FACEBOOK      = 'facebook';
     const INSTAGRAM     = 'instagram';
+    const REDDIT        = 'reddit';
 
     /**
      * Get all embed providers
@@ -55,7 +56,7 @@ final class Embed_Provider {
                 'xpath'     => '//blockquote[contains(@class,"twitter-tweet")]',
                 'text'      => sprintf( __('Beim Laden des Tweets werden Daten an %s übertragen.', 'two-click-embeds'), __('X (ehemals Twitter)', 'two-click-embeds') ),
                 'script'    => 'https://platform.twitter.com/widgets.js',
-                'handler'   => Twitter_Provider_Handler::class,
+                'handler'   => Script_After_Embed_Handler::class,
             ],
             self::TIKTOK => [
                 'slug'      => 'tiktok',
@@ -63,7 +64,7 @@ final class Embed_Provider {
                 'xpath'     => '//blockquote[contains(@class,"tiktok-embed")]',
                 'text'      => sprintf( __('Beim Laden des Videos werden Daten an %s übertragen.', 'two-click-embeds'), __('TikTok', 'two-click-embeds') ),
                 'script'    => 'https://www.tiktok.com/embed.js',
-                'handler'   => Tiktok_Provider_Handler::class,
+                'handler'   => Script_After_Embed_Handler::class,
             ],
             self::FACEBOOK => [
                 'slug'      => 'facebook',
@@ -77,8 +78,16 @@ final class Embed_Provider {
                 'label'     => __('Instagram', 'two-click-embeds'),
                 'xpath'     => '//blockquote[contains(@class,"instagram-media")]',
                 'text'      => sprintf( __('Beim Laden des Beitrags werden Daten an %s übertragen.', 'two-click-embeds'), __('Instagram', 'two-click-embeds') ),
-                'script'    => 'https://www.instagram.com/embed.js',
-                'handler'   => Instagram_Provider_Handler::class,
+                'script'    => '//www.instagram.com/embed.js',
+                'handler'   => Script_After_Embed_Handler::class,
+            ],
+            self::REDDIT => [
+                'slug'      => 'reddit',
+                'label'     => __('Reddit', 'two-click-embeds'),
+                'xpath'     => '//blockquote[contains(@class,"reddit-embed-bq")]',
+                'text'      => sprintf( __('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'), __('Reddit', 'two-click-embeds') ),
+                'script'    => 'https://embed.reddit.com/widgets.js',
+                'handler'   => Script_After_Embed_Handler::class,
             ],
 
         ];
