@@ -4,9 +4,13 @@ namespace Two_Click_Embeds\includes\provider;
 
 defined( 'ABSPATH' ) || exit;
 
-abstract class Script_After_Embed_Handler implements Provider_Handler_Interface {
+class Script_After_Embed_Handler implements Provider_Handler_Interface {
 
-    abstract protected function getScriptUrl(): string;
+    protected Provider_Definition $provider;
+
+    public function __construct( Provider_Definition $provider ) {
+        $this->provider = $provider;
+    }
 
     public function handle( \DOMElement $element ): void {
         
@@ -21,9 +25,8 @@ abstract class Script_After_Embed_Handler implements Provider_Handler_Interface 
         for ($i = $scripts->length - 1; $i >= 0; $i--) {
             $script = $scripts->item($i);
             $src = $script->getAttribute('src');
-            if ( str_contains( $src, $this->getScriptUrl() ) ) {
-                $script->parentNode->removeChild($script);;
-            }
+            if ( !str_contains( $src, $this->provider->script ) ) continue;
+            $script->parentNode->removeChild($script);
         }
     }
 }
