@@ -34,10 +34,11 @@ class Embed_Renderer {
         Provider_Definition $provider
     ): void {
        $elements = $this->xpath->query( $provider->xpath );
-       
+       if ( $elements === false || $elements->length === 0 ) return;
+
        foreach ( $elements as $element ) {
            $this->wrap($element, $provider);
-           $this->handleProviderSpecifics($provider, $element);
+           $provider->createHandler()->handle($element);
        }
     }
 
@@ -71,24 +72,17 @@ class Embed_Renderer {
 
 		$wrapper->appendChild($element);
 
-        if($element->getAttribute('src')) {
-            $src = $element->getAttribute('src');
-
-            $srcLink = $this->dom->createElement('a');
-            $srcLink->setAttribute('class', 'external-2click-src');
-            $srcLink->setAttribute('href', $element->getAttribute('src'));
-            $srcLink->setAttribute('target', '_blank');
-            
-            $textNode = $this->dom->createTextNode('Direktlink: ' . $src);
-            $srcLink->appendChild($textNode);
-
-            $wrapper->appendChild($srcLink);
-        }
-
 		//add an opt-out link
 		$wrapper->appendChild(
 			$this->generateOptOutLink( $provider )
-		);        
+		);  
+
+        if(!$element->getAttribute('src')) return;
+
+        $wrapper->appendChild(
+            $this->generateSourceLink($element)
+        );
+      
     }
 
     /**
@@ -137,21 +131,22 @@ class Embed_Renderer {
     }
 
     /**
-     * Handle provider specific adjustments via Provider Handlers
-     * 
-     * @param Provider_Definition $provider
+     * Generate a source link element
      * @param \DOMElement $element
-     * @return void
+     * @return \DOMElement
      */
-    private function handleProviderSpecifics(
-        Provider_Definition $provider,
+    public function generateSourceLink(
         \DOMElement $element
-    ): void {
-        $handler = Provider_Handler_Factory::getHandler( $provider->slug );
+    ): \DOMElement {
+        $srcLink = $this->dom->createElement('a');
+        $srcLink->setAttribute('class', 'external-2click-src');
+        $srcLink->setAttribute('href', $element->getAttribute('src'));
+        $srcLink->setAttribute('target', '_blank');
+        $srcLink->setAttribute('rel', 'noopener noreferrer');
+        $textNode = $this->dom->createTextNode('Direktlink: ' . $element->getAttribute('src'));
+        $srcLink->appendChild($textNode);
 
-        if ( $handler ) {
-            $handler->handle( $element );
-        }
+        return $srcLink;
     }
 
     /**
