@@ -1,44 +1,40 @@
 (function() {
     'use strict';
 
-    if(typeof TwoClickEmbeds === 'undefined' || !TwoClickEmbeds.providerScripts) {
-        return;
-    }
+    if(typeof TwoClickEmbeds === 'undefined' || !TwoClickEmbeds.providerScripts) return;
 
     const COOKIE = TwoClickEmbeds.cookieName;
     const providerScripts = TwoClickEmbeds.providerScripts;
 
     function getConsent() {
-        const consent = [];
         const cookie = document.cookie.split('; ').find(row => row.startsWith(COOKIE + '='));
 
-        if (cookie) {
-            const value = cookie.split('=')[1];
-            return value.split(',');
-        }
+        if (!cookie) return [];
         
-        return consent;
+        const value = cookie.split('=')[1];
+        return value.split(',');        
     }
 
     function setConsent(consent) {
         const filtered = consent.filter(Boolean);
-        const date = new Date();
-        date.setTime(date.getTime() + 365*24*60*60*1000);
-        const expires = "expires=" + date.toUTCString();
 
         if (filtered.length === 0) {
             document.cookie = COOKIE + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-        } else {
-            document.cookie = COOKIE + "=" + filtered.join(',') + ";" + expires + ";path=/";
+            return;
         }
+
+        const date = new Date();
+        date.setTime(date.getTime() + 365*24*60*60*1000);
+        document.cookie = COOKIE + "=" + filtered.join(',') + ";expires=" + date.toUTCString() + ";path=/";
     }
 
     function addConsent(slug) {
         const consent = getConsent();
-        if (!consent.includes(slug)) {
-            consent.push(slug);
-            setConsent(consent);
-        }
+        
+        if (consent.includes(slug)) return;    
+
+        consent.push(slug);
+        setConsent(consent);
     }
 
     function removeConsent(slug) {
@@ -48,12 +44,14 @@
     }
 
     function loadProviderScript(slug) {
-        if (providerScripts[slug]) {
-            const script = document.createElement('script');
-            script.src = providerScripts[slug];
-            script.async = true;
-            document.body.appendChild(script);
-        }
+        const src = providerScripts[slug];
+        
+        if (!src) return;
+        
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        document.body.appendChild(script);
     }
 
     function loadProviderEmbeds(slug) {
