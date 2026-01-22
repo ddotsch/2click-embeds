@@ -21,6 +21,9 @@ final class Embed_Provider {
     const FACEBOOK      = 'facebook';
     const INSTAGRAM     = 'instagram';
     const REDDIT        = 'reddit';
+    const PINTEREST     = 'pinterest';
+    const SPOTIFY       = 'spotify';
+    const WPEMBED       = 'wp-embed';
 
     /**
      * Get all embed providers
@@ -89,7 +92,28 @@ final class Embed_Provider {
                 'script'    => 'https://embed.reddit.com/widgets.js',
                 'handler'   => Script_After_Embed_Handler::class,
             ],
-
+            self::PINTEREST => [
+                'slug'      => 'pinterest',
+                'label'     => __('Pinterest', 'two-click-embeds'),
+                'xpath'     => '//iframe[contains(@src,"assets.pinterest.com")]',
+                'text'      => sprintf( __('Beim Laden des Pins werden Daten an %s übertragen.', 'two-click-embeds'), __('Pinterest', 'two-click-embeds') ),
+                'script'    => '',
+                'handler'   => Generic_Iframe_Handler::class,
+            ],
+            self::SPOTIFY => [
+                'slug'      => 'spotify',
+                'label'     => __('Spotify', 'two-click-embeds'),
+                'xpath'     => '//iframe[contains(@src,"spotify.com")]',
+                'text'      => sprintf( __('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'), __('Spotify', 'two-click-embeds') ),
+                'handler'   => Generic_Iframe_Handler::class,
+            ],
+            self::WPEMBED => [
+                'slug'      => 'wp-embed',
+                'label'     => __('WordPress Embed', 'two-click-embeds'),
+                'xpath'     => '//iframe[contains(@class,"wp-embedded-content")]',
+                'text'      => sprintf( __('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'), __('WordPress', 'two-click-embeds') ),
+                'handler'   => Generic_Iframe_Handler::class,
+            ],
         ];
         return apply_filters( 'two_click_embeds_providers', $providers );
     }
