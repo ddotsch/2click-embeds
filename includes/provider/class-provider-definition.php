@@ -14,17 +14,17 @@ defined( 'ABSPATH' ) || exit;
 final class Provider_Definition {
 
     public string $slug;
-    public string $label;
+    public ?string $label;
     public string $xpath;
-    public string $text;
+    public ?string $text;
     public ?string $script = null;
     public string $handler;
 
     public function __construct(
         string $slug,
-        string $label,
+        ?string $label,
         string $xpath,
-        string $text,
+        ?string $text,
         ?string $script = null,
         string $handler
     )
@@ -40,9 +40,9 @@ final class Provider_Definition {
     public static function fromArray(array $provider): Provider_Definition {
         return new self(
             $provider['slug'],
-            $provider['label'],
+            $provider['label'] ?? null,
             $provider['xpath'],
-            $provider['text'],
+            $provider['text'] ?? null,
             $provider['script'] ?? null,
             $provider['handler']
         );

@@ -12,6 +12,18 @@ class Script_After_Embed_Handler implements Provider_Handler_Interface {
         $this->provider = $provider;
     }
 
+    public function getLabel( \DOMElement $element ): ?string {
+        return $this->provider->label;
+    }
+
+    public function getText( \DOMElement $element ): ?string {
+        return $this->provider->text;
+    }
+
+    public function getSlug( \DOMElement $element ): string {
+        return $this->provider->slug;
+    }
+
     public function handle( \DOMElement $element ): void {
         
         /** @var DOMElement $parent */
