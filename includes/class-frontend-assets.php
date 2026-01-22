@@ -9,11 +9,10 @@ use Two_Click_Embeds\includes\provider\Embed_Provider;
 class Frontend_Assets {
 
     public function __construct() {
-        add_action( 'wp_footer', [ $this, 'addFrontendJS' ], 20 );
-        add_action( 'wp_head', [ $this, 'addFrontendCSS' ], 20 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueAssets' ] );
     }
 
-    public function addFrontendJS() {
+    public function enqueueAssets() {
         // Prepare provider_scripts for localization
         $provider_scripts = [];
         foreach ( Embed_Provider::all() as $provider ) {
@@ -24,7 +23,7 @@ class Frontend_Assets {
 
         // Enqueue frontend JS
         wp_enqueue_script(
-            'two-click-embeds-frontend-js',
+            'two-click-embeds-frontend',
             TCE_PLUGIN_URL . 'assets/js/frontend.js',
             [],
             TCE_VERSION,
@@ -33,21 +32,19 @@ class Frontend_Assets {
         
         // Pass provider_scripts to JS via localization
         wp_localize_script(
-            'two-click-embeds-frontend-js',
+            'two-click-embeds-frontend',
             'TwoClickEmbeds',
             [
                 'cookieName' => '2click_embed_consent',
                 'providerScripts' => $provider_scripts,
             ]
         );
-    }
 
-    public function addFrontendCSS() {
         wp_enqueue_style(
-            'two-click-embeds-frontend-css',
+            'two-click-embeds-frontend',
             TCE_PLUGIN_URL . 'assets/css/frontend.css',
             [],
             TCE_VERSION
         );
-    }    
+    }
 }
