@@ -52,8 +52,18 @@ class Generic_Iframe_Handler implements Provider_Handler_Interface {
      */
     public function getSlug( \DOMElement $element ): string {
         if ($this->provider->slug) return $this->provider->slug;
-        $nicename = strtolower( preg_replace( '/[^a-zA-Z0-9]+/', '-', $this->getLabel( $element ) ) );
-        return $nicename;
+
+        $src  = $element->getAttribute('src');
+        $host = parse_url($src, PHP_URL_HOST);
+
+        if (!$host) {
+            return 'external';
+        }
+
+        $host = strtolower($host);
+        $host = preg_replace('/^www\./', '', $host);
+
+        return preg_replace('/[^a-z0-9\.\-]/', '', $host);
     }
 
     /**
@@ -63,7 +73,10 @@ class Generic_Iframe_Handler implements Provider_Handler_Interface {
      * @return void
      */
     public function handle( \DOMElement $element ): void {
-        $src = esc_url_raw($element->getAttribute('src'));
+        $src = $element->getAttribute('src');
+
+        if(!$src) return;
+
         $element->setAttribute('data-src', $src);
         $element->setAttribute('src', '');
     }
