@@ -28,7 +28,8 @@ define( 'TCE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TCE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /* Autoloader */
-spl_autoload_register( function ( $class ) {
+spl_autoload_register( function ( $class )
+{
     $prefix     = 'Two_Click_Embeds\\';
     $base_dir   = __DIR__ . '/';
     $len        = strlen( $prefix );
@@ -53,12 +54,20 @@ spl_autoload_register( function ( $class ) {
 });
 
 /* Load text domain for translations */
-add_action( 'plugins_loaded', function () {
-    load_plugin_textdomain( 'two-click-embeds', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );    
-});
+add_action(
+    'plugins_loaded',
+    function ()
+    {
+        load_plugin_textdomain( 'two-click-embeds', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    }
+);
 
 /* Initialize frontend assets and content filter */
-add_action( 'init', function() {
-    new Frontend_Assets();
-    new ContentFilter();
-});
+add_action(
+    'init',
+    function()
+    {
+        new Frontend_Assets();
+        new ContentFilter();
+    }
+);

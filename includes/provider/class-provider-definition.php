@@ -13,7 +13,8 @@ use Two_Click_Embeds\includes\handler\Provider_Handler_Interface;
  * Enables typed access to provider properties.
  */
 
-final class Provider_Definition {
+final class Provider_Definition
+{
 
     public string $slug;
     public ?string $label;
@@ -39,9 +40,8 @@ final class Provider_Definition {
         $this->handler = $handler;
     }
 
-    public static function fromArray(
-        array $provider
-    ): Provider_Definition {
+    public static function fromArray( array $provider ): Provider_Definition
+    {
         return new self(
             $provider['slug'],
             $provider['label'] ?? null,
@@ -52,7 +52,8 @@ final class Provider_Definition {
         );
     }
 
-    public function getHandler(): Provider_Handler_Interface {
+    public function getHandler(): Provider_Handler_Interface
+    {
         
         // return instance of handler with this provider definition as parameter
         return new $this->handler($this);

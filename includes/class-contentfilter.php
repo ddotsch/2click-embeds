@@ -13,13 +13,19 @@ use Two_Click_Embeds\includes\provider\Provider_Definition;
  * Central Class to handle content filtering
  */
 
-class ContentFilter {
+class ContentFilter
+{
 
     /**
      * Constructor - add filters
      */
-    public function __construct() {
-        add_filter( 'the_content', [ $this, 'filter' ], 20 );
+    public function __construct()
+    {
+        add_filter(
+            'the_content',
+            [ $this, 'filter' ],
+            20
+        );
     }
 
     /**
@@ -29,13 +35,16 @@ class ContentFilter {
      * @param string $content The original content.
      * @return string The filtered content.
      */
-    public static function filter(
-        string $content
-    ): string {
+    public static function filter( string $content ): string
+    {
 
-        if ( empty( $content ) ) return $content;
+        if ( empty( $content ) ) {
+            return $content;
+        }
 
-        if ( is_admin() ) return $content; 
+        if ( is_admin() ) {
+            return $content;
+        }
 
         //create renderer - loads the content into a DOMDocument and generates an XPath object
         $renderer = new Embed_Renderer($content);

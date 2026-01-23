@@ -9,7 +9,8 @@ defined( 'ABSPATH' ) || exit;
  * Utility class to load HTML into a DOMDocument
  */
 
-class Domloader {
+class Domloader
+{
 
     /**
      * Load HTML into a DOMDocument
@@ -17,9 +18,8 @@ class Domloader {
      * @param string $html The HTML content to load.
      * @return \DOMDocument The loaded DOMDocument.
      */
-    public static function fromHTML(
-        string $html
-    ): \DOMDocument {
+    public static function fromHTML( string $html ): \DOMDocument
+    {
         $dom = new \DOMDocument();
 
         libxml_use_internal_errors( true );

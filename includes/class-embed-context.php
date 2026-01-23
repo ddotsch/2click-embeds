@@ -6,7 +6,8 @@ defined( 'ABSPATH' ) || exit;
 
 use Two_Click_Embeds\includes\provider\Provider_Definition;
 
-class Embed_Context {
+class Embed_Context
+{
 
     public \DOMElement $element;
     public Provider_Definition $provider;
@@ -20,7 +21,8 @@ class Embed_Context {
         string $label,
         string $text,
         string $slug
-    ) {
+    )
+    {
         $this->element = $element;
         $this->provider = $provider;
         $this->label = $label;

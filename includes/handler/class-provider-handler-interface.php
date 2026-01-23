@@ -9,7 +9,8 @@ defined( 'ABSPATH' ) || exit;
  * Interface for provider handlers to implement provider specific handling logic
  */
 
-interface Provider_Handler_Interface {
+interface Provider_Handler_Interface
+{
 
     /**
      * Get the label for the provider based on the given DOM element

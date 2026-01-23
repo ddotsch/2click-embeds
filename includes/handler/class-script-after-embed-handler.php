@@ -6,38 +6,33 @@ defined( 'ABSPATH' ) || exit;
 
 use Two_Click_Embeds\includes\provider\Provider_Definition;
 
-class Script_After_Embed_Handler implements Provider_Handler_Interface {
+class Script_After_Embed_Handler implements Provider_Handler_Interface
+{
 
     protected Provider_Definition $provider;
 
-    public function __construct(
-        Provider_Definition $provider
-    ) {
+    public function __construct( Provider_Definition $provider )
+    {
         $this->provider = $provider;
     }
 
-    public function getLabel(
-        \DOMElement $element
-    ): string {
+    public function getLabel( \DOMElement $element ): string
+    {
         return $this->provider->label;
     }
 
-    public function getText(
-        \DOMElement $element
-    ): string {
+    public function getText( \DOMElement $element ): string
+    {
         return $this->provider->text;
     }
 
-    public function getSlug(
-        \DOMElement $element
-    ): string {
+    public function getSlug( \DOMElement $element ): string
+    {
         return $this->provider->slug;
     }
 
-    public function handle(
-        \DOMElement $element
-    ): void {
-        
+    public function handle( \DOMElement $element ): void
+    {
         /** @var DOMElement $parent */
         $parent = $element->parentNode->parentNode;
 
