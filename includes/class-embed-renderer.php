@@ -20,8 +20,8 @@ class Embed_Renderer {
         string $content
     )
     {
-        $this->dom = Domloader::fromHTML( $content );
-        $this->xpath = new \DOMXPath($this->dom);
+        $this->dom      = Domloader::fromHTML( $content );
+        $this->xpath    = new \DOMXPath( $this->dom );
     }
 
     /**
@@ -33,8 +33,10 @@ class Embed_Renderer {
     public function process(
         Provider_Definition $provider
     ): void {
-       $elements = $this->xpath->query( $provider->xpath );
-       if ( $elements === false || $elements->length === 0 ) return;
+        $elements = $this->xpath->query( $provider->xpath );
+
+        //no elements found
+        if ( $elements === false || $elements->length === 0 ) return;
 
         $handler = $provider->getHandler();
 
@@ -43,13 +45,13 @@ class Embed_Renderer {
             $embedContext = new Embed_Context(
                 $element,
                 $provider,
-                $handler->getLabel($element),
-                $handler->getText($element),
-                $handler->getSlug($element)
+                $handler->getLabel( $element ),
+                $handler->getText( $element ),
+                $handler->getSlug( $element )
             );
 
-            $this->wrap($embedContext);
-            $handler->handle($element);
+            $this->wrap( $embedContext);
+            $handler->handle( $element );
         }
     }
 
@@ -62,14 +64,15 @@ class Embed_Renderer {
     private function wrap(
         Embed_Context $context
     ): void {
-		$elementClasses = $context->element->getAttribute('class');
-		$context->element->setAttribute('class', 'external-2click-target ' . $elementClasses);
+        // add class to the element itself
+		$elementClasses = $context->element->getAttribute( 'class' );
+		$context->element->setAttribute( 'class', 'external-2click-target ' . $elementClasses );
 
-		//add a 2click wrapper
-		$wrapper = $this->dom->createElement('div');
-		$wrapper->setAttribute('class', 'external-2click');
-		$wrapper->setAttribute('data-provider', $context->label);
-		$wrapper->setAttribute('data-provider-slug', $context->slug);
+		//create 2click wrapper
+		$wrapper = $this->dom->createElement( 'div' );
+		$wrapper->setAttribute( 'class', 'external-2click' );
+		$wrapper->setAttribute( 'data-provider', $context->label );
+		$wrapper->setAttribute( 'data-provider-slug', $context->slug );
 		
 		//add a placeholder inside the wrapper
 		$wrapper->appendChild(
@@ -78,18 +81,18 @@ class Embed_Renderer {
 
         //move the element inside the wrapper
 		$elementParent = $context->element->parentNode;
-		$elementParent->replaceChild($wrapper, $context->element);
+		$elementParent->replaceChild( $wrapper, $context->element);
 
-		$wrapper->appendChild($context->element);
+		$wrapper->appendChild( $context->element );
 
 		//add an opt-out link
 		$wrapper->appendChild(
 			$this->generateOptOutLink( $context )
 		);  
 
-        if(!$context->element->getAttribute('src')) return;
+        if( !$context->element->getAttribute( 'src' ) ) return;
         $wrapper->appendChild(
-            $this->generateSourceLink($context)
+            $this->generateSourceLink( $context )
         );
     }
 
@@ -101,19 +104,19 @@ class Embed_Renderer {
     private function generatePlaceholder(
         Embed_Context $context
     ): \DOMElement {
-        $title 	= $this->dom->createElement('strong', __('Externer Inhalt', 'two-click-embeds'));
-        $text 	= $this->dom->createElement('p', $context->text);
+        $title 	= $this->dom->createElement( 'strong', __( 'Externer Inhalt', 'two-click-embeds' ) );
+        $text 	= $this->dom->createElement( 'p', $context->text );
 
-        $button = $this->dom->createElement('button', sprintf(__('Inhalt von %s zulassen', 'two-click-embeds'), $context->label));
-        $button->setAttribute('type', 'button');
-        $button->setAttribute('class', 'external-load');
+        $button = $this->dom->createElement( 'button', sprintf( __( 'Inhalt von %s zulassen', 'two-click-embeds' ), $context->label ) );
+        $button->setAttribute( 'type', 'button' );
+        $button->setAttribute( 'class', 'external-load' );
 
-        $wrapper = $this->dom->createElement('div');
-        $wrapper->setAttribute('class', 'external-placeholder');
+        $wrapper = $this->dom->createElement( 'div' );
+        $wrapper->setAttribute( 'class', 'external-placeholder' );
 
-        $wrapper->appendChild($title);
-        $wrapper->appendChild($text);
-        $wrapper->appendChild($button);
+        $wrapper->appendChild( $title );
+        $wrapper->appendChild( $text );
+        $wrapper->appendChild( $button );
 
         return $wrapper;
     }
@@ -126,14 +129,14 @@ class Embed_Renderer {
     private function generateOptOutLink(
         Embed_Context $context
     ): \DOMElement {
-        $wrapper = $this->dom->createElement('p');
-        $wrapper->setAttribute('class', 'external-optout');
+        $wrapper = $this->dom->createElement( 'p' );
+        $wrapper->setAttribute( 'class', 'external-optout' );
 
-        $link = $this->dom->createElement('a', sprintf(__('Inhalte von %s nicht mehr zulassen', 'two-click-embeds'), $context->label));
-        $link->setAttribute('href', '#');
-        $link->setAttribute('data-revoke', $context->slug);
+        $link = $this->dom->createElement( 'a', sprintf( __( 'Inhalte von %s nicht mehr zulassen', 'two-click-embeds' ), $context->label ) );
+        $link->setAttribute( 'href', '#' );
+        $link->setAttribute( 'data-revoke', $context->slug );
 
-        $wrapper->appendChild($link);
+        $wrapper->appendChild( $link );
 
         return $wrapper;
     }
@@ -146,13 +149,13 @@ class Embed_Renderer {
     public function generateSourceLink(
         Embed_Context $context
     ): \DOMElement {
-        $srcLink = $this->dom->createElement('a');
-        $srcLink->setAttribute('class', 'external-2click-src');
-        $srcLink->setAttribute('href', $context->element->getAttribute('src'));
-        $srcLink->setAttribute('target', '_blank');
-        $srcLink->setAttribute('rel', 'noopener noreferrer');
-        $textNode = $this->dom->createTextNode('Direktlink: ' . $context->element->getAttribute('src'));
-        $srcLink->appendChild($textNode);
+        $srcLink = $this->dom->createElement( 'a' );
+        $srcLink->setAttribute( 'class', 'external-2click-src' );
+        $srcLink->setAttribute( 'href', $context->element->getAttribute( 'src' ) );
+        $srcLink->setAttribute( 'target', '_blank' );
+        $srcLink->setAttribute( 'rel', 'noopener noreferrer' );
+        $textNode = $this->dom->createTextNode( 'Direktlink: ' . $context->element->getAttribute( 'src' ) );
+        $srcLink->appendChild( $textNode );
 
         return $srcLink;
     }

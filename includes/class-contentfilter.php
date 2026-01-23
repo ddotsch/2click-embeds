@@ -51,6 +51,11 @@ class ContentFilter {
                 continue;
             }
             
+            if ( empty( $provider->xpath ) ) {
+                error_log( '2click-embeds: No XPath defined for provider ' . $provider->slug );
+                continue;
+            }
+
             $renderer->process( $provider );
         }
 

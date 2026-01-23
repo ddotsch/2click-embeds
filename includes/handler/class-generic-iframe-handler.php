@@ -19,29 +19,33 @@ class Generic_Iframe_Handler implements Provider_Handler_Interface {
     /**
     * Get the label for the provider based on the given DOM element
     * @param \DOMElement $element The DOM element to extract the label from.
-    * @return string|null The label of the provider.
+    * @return string The label of the provider.
     */
-    public function getLabel( \DOMElement $element ): ?string {
-        if($this->provider->label) return $this->provider->label;
+    public function getLabel(
+        \DOMElement $element
+    ): string {
+        if( $this->provider->label ) return $this->provider->label;
         
-        $src = esc_url_raw($element->getAttribute('src'));
-        $host = parse_url($src, PHP_URL_HOST);
-        $domain = preg_replace('/^www\./i', '', $host);
+        $src = esc_url_raw( $element->getAttribute( 'src' ) );
+        $host = parse_url( $src, PHP_URL_HOST );
+        $domain = preg_replace('/^www\./i', '', $host );
 
-        return $domain ?: __('Unbekannter Provider', 'two-click-embeds');
+        return $domain ?: __( 'Unbekannter Provider', 'two-click-embeds' );
     }
 
     /**
      * Get the text for the provider based on the given DOM element
      * @param \DOMElement $element The DOM element to extract the text from.
-     * @return string|null The text of the provider.
+     * @return string The text of the provider.
      */
-    public function getText( \DOMElement $element ): ?string {
-        if($this->provider->text) return $this->provider->text;
+    public function getText(
+        \DOMElement $element
+    ): string {
+        if( $this->provider->text ) return $this->provider->text;
 
         return sprintf(
             __('Beim Laden des Inhalts werden Daten an %s übertragen.', 'two-click-embeds'),
-            $this->getLabel($element)
+            $this->getLabel( $element )
         );
     }
 
@@ -50,20 +54,22 @@ class Generic_Iframe_Handler implements Provider_Handler_Interface {
      * @param \DOMElement $element The DOM element to extract the slug from.
      * @return string The slug of the provider.
      */
-    public function getSlug( \DOMElement $element ): string {
-        if ($this->provider->slug) return $this->provider->slug;
+    public function getSlug(
+        \DOMElement $element
+    ): string {
+        if ( $this->provider->slug ) return $this->provider->slug;
 
-        $src  = $element->getAttribute('src');
-        $host = parse_url($src, PHP_URL_HOST);
+        $src  = $element->getAttribute( 'src' );
+        $host = parse_url( $src, PHP_URL_HOST );
 
-        if (!$host) {
+        if ( !$host ) {
             return 'external';
         }
 
-        $host = strtolower($host);
-        $host = preg_replace('/^www\./', '', $host);
+        $host = strtolower( $host );
+        $host = preg_replace( '/^www\./', '', $host );
 
-        return preg_replace('/[^a-z0-9\.\-]/', '', $host);
+        return preg_replace( '/[^a-z0-9\.\-]/', '', $host );
     }
 
     /**
@@ -73,11 +79,11 @@ class Generic_Iframe_Handler implements Provider_Handler_Interface {
      * @return void
      */
     public function handle( \DOMElement $element ): void {
-        $src = $element->getAttribute('src');
+        $src = $element->getAttribute( 'src' );
 
-        if(!$src) return;
+        if ( !$src ) return;
 
-        $element->setAttribute('data-src', $src);
-        $element->setAttribute('src', '');
+        $element->setAttribute( 'data-src', $src );
+        $element->setAttribute( 'src', '' );
     }
 }

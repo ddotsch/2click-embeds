@@ -14,16 +14,16 @@ interface Provider_Handler_Interface {
     /**
      * Get the label for the provider based on the given DOM element
      * @param \DOMElement $element The DOM element to extract the label from.
-     * @return string|null The label of the provider.
+     * @return string The label of the provider.
      */
-    public function getLabel( \DOMElement $element ): ?string;
+    public function getLabel( \DOMElement $element ): string;
 
     /**
      * Get the text for the provider based on the given DOM element
      * @param \DOMElement $element The DOM element to extract the text from.
-     * @return string|null The text of the provider.
+     * @return string The text of the provider.
      */
-    public function getText( \DOMElement $element ): ?string;
+    public function getText( \DOMElement $element ): string;
 
     /**
      * Get the slug for the provider based on the given DOM element
